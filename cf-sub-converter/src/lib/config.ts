@@ -60,7 +60,7 @@ function getConfig(): Config {
     subConfig:
       process.env.SUB_CONFIG ||
       process.env.SUBCONFIG ||
-      'https://raw.githubusercontent.com/cmliu/ACL4SSR/main/Clash/config/ACL4SSR_Online_MultiCountry.ini',
+      'https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini',
     subProtocol: process.env.SUB_PROTOCOL || 'https',
 
     // Default data

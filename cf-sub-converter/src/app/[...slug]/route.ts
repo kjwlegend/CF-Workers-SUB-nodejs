@@ -363,15 +363,16 @@ async function callSubConverter(
     const params = new URLSearchParams({
       target: targetFormat,
       url: encodeURIComponent(subscriptionUrl),
-      insert: 'false',
       config: encodeURIComponent(config.subConfig),
       emoji: 'true',
+      append_type: 'true',
+      append_info: 'true',
+      scv: 'false',
+      udp: 'false',
       list: 'false',
-      tfo: 'false',
-      scv: 'true',
-      fdn: 'false',
       sort: 'false',
-      new_name: 'true',
+      fdn: 'false',
+      insert: 'false',
     })
 
     // 格式特定参数
@@ -387,6 +388,8 @@ async function callSubConverter(
       targetFormat,
       subscriptionUrl,
       subConverterUrl,
+      baseUrl,
+      params: Object.fromEntries(params.entries()),
     })
 
     // 调用转换服务
