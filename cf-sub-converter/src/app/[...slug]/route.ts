@@ -182,6 +182,33 @@ function isValidBase64(str: string): boolean {
 }
 
 /**
+ * 获取正确的服务器URL，优先使用请求头中的信息
+ * 这对于部署在代理服务器后面的应用很重要
+ */
+function getServerUrl(request: NextRequest, fallbackUrl: URL): string {
+  // 1. 检查 X-Forwarded-Host 头（代理服务器设置）
+  const forwardedHost = request.headers.get('x-forwarded-host')
+  if (forwardedHost) {
+    const protocol = request.headers.get('x-forwarded-proto') || 'https'
+    return `${protocol}://${forwardedHost}`
+  }
+
+  // 2. 检查 Host 头
+  const host = request.headers.get('host')
+  if (host && !host.includes('localhost') && !host.includes('127.0.0.1')) {
+    const protocol =
+      request.headers.get('x-forwarded-proto') ||
+      (host.includes('localhost') || host.includes('127.0.0.1')
+        ? 'http'
+        : 'https')
+    return `${protocol}://${host}`
+  }
+
+  // 3. 回退到 URL origin
+  return fallbackUrl.origin
+}
+
+/**
  * 代理 URL 请求 - 用于调用外部转换服务
  * 实现完整的订阅转换逻辑，包括 fakeToken 机制
  */
@@ -460,8 +487,10 @@ export async function GET(
     const isBrowser = userAgent.toLowerCase().includes('mozilla')
     if (isBrowser && !url.searchParams.has('sub')) {
       logger.info('Browser detected, redirecting to edit page')
+
+      const serverUrl = getServerUrl(request, url)
       return NextResponse.redirect(
-        new URL(`/edit?token=${pathToken}`, request.url)
+        new URL(`/edit?token=${pathToken}`, serverUrl)
       )
     }
 
@@ -670,7 +699,8 @@ export async function GET(
     const fakeToken = await md5Double(`${pathToken}${timeTemp}`)
 
     // 构建订阅转换 URL（模拟原始 CF Worker 逻辑）
-    let 内部订阅URL = `${url.origin}/${await md5Double(
+    const serverUrl = getServerUrl(request, url)
+    let 内部订阅URL = `${serverUrl}/${await md5Double(
       fakeToken
     )}?token=${fakeToken}`
     if (订阅转换URL) {
@@ -680,6 +710,13 @@ export async function GET(
     logger.info('Generated internal subscription URL:', {
       fakeToken,
       内部订阅URL,
+      serverUrl,
+      originalOrigin: url.origin,
+      headers: {
+        host: request.headers.get('host'),
+        'x-forwarded-host': request.headers.get('x-forwarded-host'),
+        'x-forwarded-proto': request.headers.get('x-forwarded-proto'),
+      },
     })
 
     try {
