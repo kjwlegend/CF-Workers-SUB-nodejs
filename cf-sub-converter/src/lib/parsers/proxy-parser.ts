@@ -215,7 +215,6 @@ export function parseHysteria(hysteriaUrl: string): ParsedProxy | null {
       port: parseInt(url.port),
       auth: url.username || params.get('auth') || '',
       'auth-str': params.get('auth') || '',
-      protocol: params.get('protocol') || 'udp',
       up: params.get('up') || '',
       down: params.get('down') || '',
       'skip-cert-verify': params.get('insecure') === '1',
