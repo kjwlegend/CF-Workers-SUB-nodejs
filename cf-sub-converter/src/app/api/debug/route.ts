@@ -5,6 +5,7 @@ import config, { getRuntimeConfig } from '@/lib/config'
  * Debug API endpoint to check environment variables and configuration
  * 调试API端点，用于检查环境变量和配置
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: NextRequest) {
   try {
     // Get both static and runtime config

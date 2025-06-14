@@ -7,6 +7,7 @@ import config from '@/lib/config'
  *
  * 注意：此端点只返回非敏感的配置信息
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: NextRequest) {
   try {
     // 只返回客户端需要的非敏感配置信息

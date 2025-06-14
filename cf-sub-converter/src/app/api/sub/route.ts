@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
-import {
-  validateToken,
-  getRequestIP,
-  getUserAgentType,
-} from '@/lib/utils/validator'
+import { validateToken, getRequestIP } from '@/lib/utils/validator'
 import {
   getSubscriptionFormat,
   convertSubscription,
@@ -12,6 +8,7 @@ import {
 import telegramService from '@/lib/telegram'
 import logger from '@/lib/logger'
 import config from '@/lib/config'
+import * as storage from '@/lib/storage'
 
 const prisma = new PrismaClient()
 
@@ -25,17 +22,15 @@ export async function GET(request: NextRequest) {
     // Validate token
     if (!(await validateToken(token, url))) {
       logger.warn('Invalid token access attempt', { ip, userAgent, token })
-      return NextResponse.redirect(new URL('/', request.url))
+      return new NextResponse('Unauthorized', { status: 401 })
     }
 
     // Log access
-    await prisma.accessLog.create({
-      data: {
-        ip,
-        userAgent,
-        path: url.pathname,
-        token: token || undefined,
-      },
+    logger.info('Subscription API access:', {
+      ip,
+      userAgent,
+      path: url.pathname,
+      token,
     })
 
     // Send Telegram notification
@@ -49,34 +44,18 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get subscription format
-    const format = getSubscriptionFormat(userAgent, url)
+    // Get subscription content
+    const content = storage.getSubscriptionContent(token || '')
 
-    // Get subscription content from database
-    const subscription = await prisma.subscription.findFirst({
-      where: { token: token || '' },
-      orderBy: { updatedAt: 'desc' },
-    })
+    // Return base64 encoded content
+    const base64Content = Buffer.from(
+      content || config.defaultMainData
+    ).toString('base64')
 
-    if (!subscription) {
-      return new NextResponse('No subscription found', { status: 404 })
-    }
-
-    // Convert subscription to requested format
-    const converted = await convertSubscription(
-      subscription.content,
-      format,
-      request.url
-    )
-
-    // Return response with appropriate headers
-    return new NextResponse(converted.content, {
+    return new NextResponse(base64Content, {
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Content-Disposition': `attachment; filename*=utf-8''${encodeURIComponent(
-          config.subName
-        )}`,
-        'Profile-Update-Interval': config.subUpdateTime.toString(),
+        'Profile-Update-Interval': `${config.subUpdateTime}`,
       },
     })
   } catch (error) {

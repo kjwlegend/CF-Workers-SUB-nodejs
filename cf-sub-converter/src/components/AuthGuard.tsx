@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 interface AuthGuardProps {
   children: React.ReactNode
@@ -14,11 +14,25 @@ export default function AuthGuard({ children, requiredToken }: AuthGuardProps) {
   const [loading, setLoading] = useState(true)
   const [verifying, setVerifying] = useState(false)
 
-  useEffect(() => {
-    checkAuthentication()
-  }, [requiredToken])
+  const verifyToken = async (token: string): Promise<boolean> => {
+    try {
+      const response = await fetch('/api/auth/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      })
 
-  const checkAuthentication = async () => {
+      const result = await response.json()
+      return result.valid === true
+    } catch (error) {
+      console.error('Token verification failed:', error)
+      return false
+    }
+  }
+
+  const checkAuthentication = useCallback(async () => {
     try {
       // 检查是否已经通过 URL 参数验证
       const url = new URL(window.location.href)
@@ -61,25 +75,11 @@ export default function AuthGuard({ children, requiredToken }: AuthGuardProps) {
       console.error('Authentication check failed:', error)
       setLoading(false)
     }
-  }
+  }, [])
 
-  const verifyToken = async (token: string): Promise<boolean> => {
-    try {
-      const response = await fetch('/api/auth/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      })
-
-      const result = await response.json()
-      return result.valid === true
-    } catch (error) {
-      console.error('Token verification failed:', error)
-      return false
-    }
-  }
+  useEffect(() => {
+    checkAuthentication()
+  }, [requiredToken, checkAuthentication])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()

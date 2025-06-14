@@ -1,42 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 import { validateToken, getRequestIP } from '@/lib/utils/validator'
 import telegramService from '@/lib/telegram'
 import logger from '@/lib/logger'
 import config from '@/lib/config'
 import * as storage from '@/lib/storage'
-
-const prisma = new PrismaClient()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url)
     const token = url.searchParams.get('token')
-    const userAgent = request.headers.get('user-agent') || 'unknown'
-    const ip = getRequestIP(request)
 
-    // Validate token
+    if (!token) {
+      return new Response('Token is required', { status: 400 })
+    }
+
+    // 验证 token
     if (!(await validateToken(token, url))) {
-      logger.warn('Invalid token access attempt', { ip, userAgent, token })
-      return new NextResponse('Unauthorized', { status: 401 })
+      return new Response('Invalid token', { status: 401 })
     }
 
-    // Log access
-    try {
-      logger.info('Edit API access:', {
-        ip,
-        userAgent,
-        path: url.pathname,
-        token,
-      })
-    } catch (error) {
-      logger.error('Failed to log access:', error)
-    }
+    // 获取存储的内容
+    const content = storage.getSubscriptionContent(token)
 
-    // Send Telegram notification for edit access
+    // 记录访问
+    const ip = getRequestIP(request)
+    const userAgent = request.headers.get('user-agent') || 'unknown'
+
+    logger.info('Edit page accessed', {
+      ip,
+      userAgent,
+      token: token.substring(0, 3) + '***', // 只记录前3位
+    })
+
+    // 发送 Telegram 通知
     if (config.tgEnabled) {
       await telegramService.sendMessage(
-        `#编辑订阅 ${config.subName}`,
+        '#编辑订阅',
         ip,
         `UA: ${userAgent}\n域名: ${url.hostname}\n入口: ${
           url.pathname + url.search
@@ -44,16 +45,16 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // API请求：返回纯文本内容
-    const content = getSubscriptionContent(token || '')
-    return new NextResponse(content, {
+    // 返回纯文本内容
+    return new Response(content || config.defaultMainData, {
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache',
       },
     })
   } catch (error) {
-    logger.error('Edit API error:', error)
-    return new NextResponse('Internal Server Error', { status: 500 })
+    logger.error('Edit GET error:', error)
+    return new Response('Internal server error', { status: 500 })
   }
 }
 
@@ -61,51 +62,49 @@ export async function POST(request: NextRequest) {
   try {
     const url = new URL(request.url)
     const token = url.searchParams.get('token')
-    const userAgent = request.headers.get('user-agent') || 'unknown'
-    const ip = getRequestIP(request)
 
-    // Validate token
-    if (!(await validateToken(token, url))) {
-      logger.warn('Invalid token access attempt', { ip, userAgent, token })
-      return new NextResponse('Unauthorized', { status: 401 })
+    if (!token) {
+      return new Response('Token is required', { status: 400 })
     }
 
-    // Get content from request body
+    // 验证 token
+    if (!(await validateToken(token, url))) {
+      return new Response('Invalid token', { status: 401 })
+    }
+
+    // 获取请求体内容
     const content = await request.text()
 
-    // Save content using storage
-    storage.saveSubscriptionContent(token || '', content)
+    // 保存到存储
+    storage.saveSubscriptionContent(token, content)
+
+    // 记录保存操作
+    const ip = getRequestIP(request)
+    const userAgent = request.headers.get('user-agent') || 'unknown'
 
     logger.info('Subscription content saved', {
-      token,
+      ip,
+      userAgent,
+      token: token.substring(0, 3) + '***',
       contentLength: content.length,
-      storageStats: storage.getStorageStats(),
     })
 
-    return new NextResponse('保存成功')
-  } catch (error) {
-    logger.error('Edit API save error:', error)
-    return new NextResponse('保存失败: ' + (error as Error).message, {
-      status: 500,
-    })
-  }
-}
-
-/**
- * 获取订阅内容
- */
-function getSubscriptionContent(token: string): string {
-  try {
-    // 首先尝试从内存存储获取
-    const storedContent = storage.getSubscriptionContent(token)
-    if (storedContent) {
-      return storedContent
+    // 发送 Telegram 通知
+    if (config.tgEnabled) {
+      await telegramService.sendMessage(
+        '#保存订阅',
+        ip,
+        `UA: ${userAgent}\n域名: ${url.hostname}\n内容长度: ${content.length}`
+      )
     }
 
-    // 如果没有存储的内容，返回默认配置内容
-    return config.defaultMainData || ''
+    return new Response('保存成功', {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+      },
+    })
   } catch (error) {
-    logger.error('Failed to get subscription content:', error)
-    return config.defaultMainData || ''
+    logger.error('Edit POST error:', error)
+    return new Response('保存失败', { status: 500 })
   }
 }

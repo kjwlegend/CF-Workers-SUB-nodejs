@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import SubscriptionLinks from '@/components/SubscriptionLinks'
 
@@ -14,7 +14,8 @@ interface ClientConfig {
   tgEnabled: boolean
 }
 
-export default function EditPage() {
+// 将使用 useSearchParams 的逻辑分离到单独的组件
+function EditPageContent() {
   const [token, setToken] = useState('')
   const [baseUrl, setBaseUrl] = useState('')
   const [config, setConfig] = useState<ClientConfig | null>(null)
@@ -27,22 +28,6 @@ export default function EditPage() {
 
   const router = useRouter()
   const searchParams = useSearchParams()
-
-  useEffect(() => {
-    const tokenParam = searchParams.get('token')
-
-    if (!tokenParam) {
-      // 没有token参数，重定向到首页
-      router.push('/')
-      return
-    }
-
-    setToken(tokenParam)
-    setBaseUrl(window.location.origin)
-
-    // 验证token并加载数据
-    verifyAndLoadData(tokenParam)
-  }, [searchParams, router])
 
   const verifyToken = async (token: string): Promise<boolean> => {
     try {
@@ -62,59 +47,78 @@ export default function EditPage() {
     }
   }
 
-  const verifyAndLoadData = async (token: string) => {
-    try {
-      setVerifying(true)
+  const verifyAndLoadData = useCallback(
+    async (token: string) => {
+      try {
+        setVerifying(true)
 
-      // 验证token
-      const isValid = await verifyToken(token)
-      if (!isValid) {
-        // token无效，重定向到首页
+        // 验证token
+        const isValid = await verifyToken(token)
+        if (!isValid) {
+          // token无效，重定向到首页
+          router.push('/')
+          return
+        }
+
+        setAuthenticated(true)
+
+        // 并行加载配置和内容
+        const [configResponse, contentResponse] = await Promise.all([
+          fetch('/api/config'),
+          fetch(`/api/edit?token=${token}`),
+        ])
+
+        // 处理配置
+        if (configResponse.ok) {
+          const configData = await configResponse.json()
+          setConfig(configData)
+        } else {
+          // 使用默认配置
+          setConfig({
+            subName: 'CF-SUB-CONVERTER',
+            subUpdateTime: 6,
+            subApi: 'SUBAPI.cmliussss.net',
+            subProtocol: 'https',
+            subConfig:
+              'https://raw.githubusercontent.com/cmliu/ACL4SSR/main/Clash/config/ACL4SSR_Online_MultiCountry.ini',
+            tgEnabled: false,
+          })
+        }
+
+        // 处理内容
+        if (contentResponse.ok) {
+          const contentData = await contentResponse.text()
+          setContent(contentData)
+        } else {
+          console.error('Failed to load content:', contentResponse.statusText)
+          setContent('')
+        }
+      } catch (error) {
+        console.error('Error loading data:', error)
         router.push('/')
-        return
+      } finally {
+        setVerifying(false)
+        setLoading(false)
       }
+    },
+    [router]
+  )
 
-      setAuthenticated(true)
+  useEffect(() => {
+    const tokenParam = searchParams.get('token')
 
-      // 并行加载配置和内容
-      const [configResponse, contentResponse] = await Promise.all([
-        fetch('/api/config'),
-        fetch(`/api/edit?token=${token}`),
-      ])
-
-      // 处理配置
-      if (configResponse.ok) {
-        const configData = await configResponse.json()
-        setConfig(configData)
-      } else {
-        // 使用默认配置
-        setConfig({
-          subName: 'CF-SUB-CONVERTER',
-          subUpdateTime: 6,
-          subApi: 'SUBAPI.cmliussss.net',
-          subProtocol: 'https',
-          subConfig:
-            'https://raw.githubusercontent.com/cmliu/ACL4SSR/main/Clash/config/ACL4SSR_Online_MultiCountry.ini',
-          tgEnabled: false,
-        })
-      }
-
-      // 处理内容
-      if (contentResponse.ok) {
-        const contentData = await contentResponse.text()
-        setContent(contentData)
-      } else {
-        console.error('Failed to load content:', contentResponse.statusText)
-        setContent('')
-      }
-    } catch (error) {
-      console.error('Error loading data:', error)
+    if (!tokenParam) {
+      // 没有token参数，重定向到首页
       router.push('/')
-    } finally {
-      setVerifying(false)
-      setLoading(false)
+      return
     }
-  }
+
+    setToken(tokenParam)
+    setBaseUrl(window.location.origin)
+
+    // 验证token并加载数据
+    verifyAndLoadData(tokenParam)
+  }, [searchParams, router, verifyAndLoadData])
 
   const handleSave = async () => {
     if (!token) return
@@ -367,5 +371,26 @@ export default function EditPage() {
         </footer>
       </div>
     </main>
+  )
+}
+
+// 加载组件
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">加载中...</p>
+      </div>
+    </div>
+  )
+}
+
+// 主组件
+export default function EditPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <EditPageContent />
+    </Suspense>
   )
 }

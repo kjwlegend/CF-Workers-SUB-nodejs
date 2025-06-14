@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 import config from '@/lib/config'
 import { logger } from '@/lib/logger'
-import { isValidBase64 } from '@/lib/utils/validator'
+import { isValidBase64 } from '@/lib/utils/crypto'
 import { prisma } from '@/lib/prisma'
 
 interface SubscriptionResponse {
