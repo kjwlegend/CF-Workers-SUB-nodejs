@@ -44,6 +44,5 @@ export const requestLogger = (req: any, res: any, next: any) => {
   next()
 }
 
-// 导出 logger 实例
-export { logger }
+// 统一导出方式
 export default logger

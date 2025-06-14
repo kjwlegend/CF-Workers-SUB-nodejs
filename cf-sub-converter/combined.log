@@ -422,3 +422,254 @@
 {"input":0,"level":"debug","message":"ADD function processed data:","output":0,"timestamp":"2025-06-14T05:35:04.878Z"}
 {"hasConversionUrls":false,"level":"info","message":"Format detection:","timestamp":"2025-06-14T05:35:04.878Z","userAgent":"ClashforWindows/0.20.6","订阅格式":"base64"}
 {"base64Length":4216,"level":"info","message":"Returning base64 subscription:","nodeCount":6,"originalLength":3161,"timestamp":"2025-06-14T05:35:04.878Z"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T05:59:44.375Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["sub"]},"timestamp":"2025-06-14T06:00:04.957Z","url":"http://localhost:3000/sub?token=auto-generated","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:00:04.959Z","token":"sub"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:01:52.740Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:09:04.223Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:10:15.186Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:15:08.020Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:15:08.022Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:15:20.775Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:15:20.776Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:15:21.809Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:15:26.986Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:15:26.987Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:15:28.479Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:15:28.480Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:15:28.891Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:15:32.519Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":false}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:15:32.546Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":false}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:15:36.935Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":false}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:15:42.716Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:16:22.661Z","userAgent":"curl/7.75.0","valid":true}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:16:29.889Z","userAgent":"curl/7.75.0","valid":false}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:16:39.484Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:16:39.486Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:04.973Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:04.975Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:04.975Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:05.010Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:05.010Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:05.010Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:05.018Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:05.018Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:05.018Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:16.069Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:16.070Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:16.070Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:16.077Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:16.077Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:16.078Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:16.087Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:16.088Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:16.088Z"}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:17:18.951Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:17:18.957Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:17:21.972Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:17:21.973Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:17:23.014Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:17:23.043Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":false}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:17:23.047Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":false}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:17:23.054Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:17:23.059Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:17:36.217Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:17:37.460Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:17:37.907Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:40.575Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:40.576Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:40.576Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:40.585Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:40.586Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:40.586Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:40.592Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:40.592Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:40.592Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:51.240Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:51.241Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:51.241Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:51.250Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:51.250Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:51.251Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:17:51.259Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:17:51.260Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:17:51.260Z"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:18:16.944Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:18:27.560Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:18:27.562Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:18:27.951Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:18:27.983Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"info","message":"Token verification attempt","timestamp":"2025-06-14T06:18:27.987Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36","valid":true}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:18:34.152Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:18:34.152Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:18:34.153Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:18:34.163Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:18:34.164Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:18:34.164Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:18:34.174Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:18:34.174Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:18:34.175Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:19:12.460Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:19:12.460Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:21:02.682Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:21:02.683Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:21:06.380Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:21:06.382Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:21:07.305Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:21:07.306Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["auto"]},"timestamp":"2025-06-14T06:21:35.626Z","url":"http://localhost:3000/auto","userAgent":"v2rayN/6.23"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:21:35.627Z","token":"auto"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["auto"]},"timestamp":"2025-06-14T06:21:35.635Z","url":"http://localhost:3000/auto","userAgent":"v2rayN/6.23"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:21:35.635Z","token":"auto"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["auto"]},"timestamp":"2025-06-14T06:21:35.642Z","url":"http://localhost:3000/auto","userAgent":"unknown"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:21:35.643Z","token":"auto"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:21:55.001Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:21:55.002Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:21:55.002Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:21:55.012Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:21:55.012Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:21:55.012Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:21:55.021Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:21:55.021Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:21:55.021Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:22:11.077Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:22:11.078Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:22:11.873Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:22:25.530Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:22:29.947Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:22:29.947Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:22:29.948Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:22:29.959Z","url":"http://localhost:3000/bbc","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:22:29.960Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:22:29.960Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:22:29.969Z","url":"http://localhost:3000/bbc","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:22:29.970Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:22:29.970Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:22:51.944Z","url":"http://localhost:3000/bbc?b64","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:22:51.945Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:22:51.945Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:22:51.952Z","url":"http://localhost:3000/bbc?b64","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:22:51.952Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:22:51.953Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:22:51.963Z","url":"http://localhost:3000/bbc?b64","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:22:51.964Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:22:51.964Z"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:22:57.951Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:09.978Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:17.800Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:18.257Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:18.496Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:18.689Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:19.215Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:23:27.949Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:23:33.173Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:23:33.175Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:23:33.548Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:23:43.558Z","url":"http://localhost:3000/bbc?b64","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:23:43.559Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:23:43.559Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:23:43.568Z","url":"http://localhost:3000/bbc?b64","userAgent":"v2rayN/6.23"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:23:43.568Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:23:43.568Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:23:43.576Z","url":"http://localhost:3000/bbc?b64","userAgent":"unknown"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:23:43.576Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:23:43.576Z"}
+{"contentLength":57,"level":"info","message":"Subscription content saved","storageStats":{"lastUpdated":"2025-06-14T06:23:47.056Z","tokens":["bbc"],"totalTokens":1},"timestamp":"2025-06-14T06:23:47.056Z","token":"bbc"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:23:51.128Z","url":"http://localhost:3000/bbc?b64","userAgent":"v2rayN/6.23"}
+{"length":57,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:23:51.128Z","token":"bbc"}
+{"level":"info","message":"Starting data aggregation and classification","timestamp":"2025-06-14T06:23:51.129Z"}
+{"input":57,"level":"debug","message":"ADD function processed data:","output":1,"timestamp":"2025-06-14T06:23:51.129Z"}
+{"level":"info","message":"Data classification completed:","selfBuiltNodes":0,"subscriptionLinks":1,"timestamp":"2025-06-14T06:23:51.129Z","totalLinks":1}
+{"input":58,"level":"debug","message":"ADD function processed data:","output":1,"timestamp":"2025-06-14T06:23:51.130Z"}
+{"count":1,"level":"info","message":"Fetching external subscriptions:","timestamp":"2025-06-14T06:23:51.130Z"}
+{"count":1,"level":"info","message":"Fetching subscriptions:","timestamp":"2025-06-14T06:23:51.130Z","urls":["https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray"]}
+{"level":"debug","message":"Detected Base64 subscription:","timestamp":"2025-06-14T06:23:51.402Z"}
+{"input":74023,"level":"debug","message":"ADD function processed data:","output":325,"timestamp":"2025-06-14T06:23:51.403Z"}
+{"conversionUrls":"","level":"info","message":"getSUB completed:","timestamp":"2025-06-14T06:23:51.404Z","totalNodes":325}
+{"conversionUrls":"","fetchedNodes":325,"level":"info","message":"External subscriptions processed:","timestamp":"2025-06-14T06:23:51.404Z"}
+{"hasConversionUrls":false,"level":"info","message":"Format detection:","timestamp":"2025-06-14T06:23:51.405Z","userAgent":"v2rayN/6.23","订阅格式":"base64"}
+{"base64Length":67356,"level":"info","message":"Returning base64 subscription:","nodeCount":217,"originalLength":50501,"timestamp":"2025-06-14T06:23:51.406Z"}
+{"contentLength":3158,"level":"info","message":"Subscription content saved","storageStats":{"lastUpdated":"2025-06-14T06:24:08.410Z","tokens":["bbc"],"totalTokens":1},"timestamp":"2025-06-14T06:24:08.410Z","token":"bbc"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:24:12.009Z","url":"http://localhost:3000/bbc?b64","userAgent":"v2rayN/6.23"}
+{"length":3158,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:24:12.009Z","token":"bbc"}
+{"level":"info","message":"Starting data aggregation and classification","timestamp":"2025-06-14T06:24:12.009Z"}
+{"input":3158,"level":"debug","message":"ADD function processed data:","output":6,"timestamp":"2025-06-14T06:24:12.010Z"}
+{"level":"info","message":"Data classification completed:","selfBuiltNodes":6,"subscriptionLinks":0,"timestamp":"2025-06-14T06:24:12.010Z","totalLinks":6}
+{"input":0,"level":"debug","message":"ADD function processed data:","output":0,"timestamp":"2025-06-14T06:24:12.010Z"}
+{"hasConversionUrls":false,"level":"info","message":"Format detection:","timestamp":"2025-06-14T06:24:12.010Z","userAgent":"v2rayN/6.23","订阅格式":"base64"}
+{"base64Length":4212,"level":"info","message":"Returning base64 subscription:","nodeCount":6,"originalLength":3157,"timestamp":"2025-06-14T06:24:12.011Z"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:24:20.941Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:24:20.943Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:24:37.571Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:24:37.572Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:24:39.574Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:24:39.574Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:24:45.431Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:24:45.432Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:24:45.816Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:24:50.006Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:24:50.007Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:25:30.403Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:25:30.403Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:25:32.637Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:25:32.637Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:25:33.025Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:25:38.781Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:25:38.782Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:26:34.709Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:26:34.710Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:26:35.067Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:26:49.290Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:26:49.291Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:27:22.779Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:27:22.780Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:27:23.144Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:27:26.937Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:27:26.941Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:27:27.306Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["edit","bbc"]},"timestamp":"2025-06-14T06:27:32.024Z","url":"http://localhost:3000/edit/bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:27:32.024Z","token":"edit"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:27:32.048Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:27:32.049Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:27:35.327Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:27:35.328Z","token":".well-known"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:27:35.700Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:27:40.147Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:27:50.365Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:27:50.366Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:28:30.512Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:28:30.512Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:28:30.901Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:29:43.077Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access attempt","timestamp":"2025-06-14T06:29:43.169Z","token":"auto","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:30:15.158Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:30:15.159Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:30:15.489Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:30:15.501Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":[".well-known","appspecific","com.chrome.devtools.json"]},"timestamp":"2025-06-14T06:30:18.005Z","url":"http://localhost:3000/.well-known/appspecific/com.chrome.devtools.json","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"warn","message":"Invalid token access:","timestamp":"2025-06-14T06:30:18.007Z","token":".well-known"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:30:18.500Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:30:18.510Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:31:23.376Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"ip":"::1","level":"info","message":"Edit API access:","path":"/api/edit","timestamp":"2025-06-14T06:31:23.385Z","token":"bbc","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"}
+{"contentLength":57,"level":"info","message":"Subscription content saved","storageStats":{"lastUpdated":"2025-06-14T06:31:46.714Z","tokens":["bbc"],"totalTokens":1},"timestamp":"2025-06-14T06:31:46.714Z","token":"bbc"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:32:18.219Z","url":"http://localhost:3000/bbc?clash","userAgent":"ClashforWindows/0.20.6"}
+{"length":0,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:32:18.221Z","token":"bbc"}
+{"level":"warn","message":"No subscription content found for token:","timestamp":"2025-06-14T06:32:18.221Z"}
+{"contentLength":57,"level":"info","message":"Subscription content saved","storageStats":{"lastUpdated":"2025-06-14T06:32:37.159Z","tokens":["bbc"],"totalTokens":1},"timestamp":"2025-06-14T06:32:37.159Z","token":"bbc"}
+{"ip":"::1","level":"info","message":"Subscription request:","params":{"slug":["bbc"]},"timestamp":"2025-06-14T06:32:40.646Z","url":"http://localhost:3000/bbc?clash","userAgent":"ClashforWindows/0.20.6"}
+{"length":57,"level":"info","message":"Retrieved stored content:","timestamp":"2025-06-14T06:32:40.647Z","token":"bbc"}
+{"level":"info","message":"Starting data aggregation and classification","timestamp":"2025-06-14T06:32:40.647Z"}
+{"input":57,"level":"debug","message":"ADD function processed data:","output":1,"timestamp":"2025-06-14T06:32:40.648Z"}
+{"level":"info","message":"Data classification completed:","selfBuiltNodes":0,"subscriptionLinks":1,"timestamp":"2025-06-14T06:32:40.648Z","totalLinks":1}
+{"input":58,"level":"debug","message":"ADD function processed data:","output":1,"timestamp":"2025-06-14T06:32:40.648Z"}
+{"count":1,"level":"info","message":"Fetching external subscriptions:","timestamp":"2025-06-14T06:32:40.649Z"}
+{"count":1,"level":"info","message":"Fetching subscriptions:","timestamp":"2025-06-14T06:32:40.649Z","urls":["https://raw.githubusercontent.com/mfuu/v2ray/master/v2ray"]}
+{"level":"debug","message":"Detected Base64 subscription:","timestamp":"2025-06-14T06:32:41.182Z"}
+{"input":74023,"level":"debug","message":"ADD function processed data:","output":325,"timestamp":"2025-06-14T06:32:41.184Z"}
+{"conversionUrls":"","level":"info","message":"getSUB completed:","timestamp":"2025-06-14T06:32:41.185Z","totalNodes":325}
+{"conversionUrls":"","fetchedNodes":325,"level":"info","message":"External subscriptions processed:","timestamp":"2025-06-14T06:32:41.185Z"}
+{"hasConversionUrls":false,"level":"info","message":"Format detection:","timestamp":"2025-06-14T06:32:41.185Z","userAgent":"ClashforWindows/0.20.6","订阅格式":"clash"}
+{"level":"info","message":"Converting to target format:","timestamp":"2025-06-14T06:32:41.186Z"}
+{"fakeToken":"99c4a257f5a69e8d3b31713ea1839f59","level":"info","message":"Generated internal subscription URL:","timestamp":"2025-06-14T06:32:41.187Z","内部订阅URL":"http://localhost:3000/5d3f919b5123d7dd4912a710dfd0f391?token=99c4a257f5a69e8d3b31713ea1839f59"}
+{"level":"info","message":"Calling subconverter:","subConverterUrl":"https://SUBAPI.cmliussss.net/sub?target=clash&url=http%253A%252F%252Flocalhost%253A3000%252F5d3f919b5123d7dd4912a710dfd0f391%253Ftoken%253D99c4a257f5a69e8d3b31713ea1839f59&insert=false&config=https%253A%252F%252Fraw.githubusercontent.com%252Fcmliu%252FACL4SSR%252Fmain%252FClash%252Fconfig%252FACL4SSR_Online_MultiCountry.ini&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true","subscriptionUrl":"http://localhost:3000/5d3f919b5123d7dd4912a710dfd0f391?token=99c4a257f5a69e8d3b31713ea1839f59","targetFormat":"clash","timestamp":"2025-06-14T06:32:41.188Z"}
