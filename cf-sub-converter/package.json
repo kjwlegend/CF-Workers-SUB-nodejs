@@ -12,6 +12,7 @@
     "@prisma/client": "^6.9.0",
     "@types/node-telegram-bot-api": "^0.64.9",
     "axios": "^1.9.0",
+    "js-yaml": "^4.1.0",
     "next": "15.3.3",
     "node-telegram-bot-api": "^0.66.0",
     "prisma": "^6.9.0",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"js-yaml": "^4.1.0",
+		"@types/js-yaml": "^4.0.9"
+	}
+}

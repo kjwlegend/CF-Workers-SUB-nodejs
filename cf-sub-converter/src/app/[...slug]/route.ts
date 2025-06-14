@@ -5,64 +5,73 @@ import logger from '@/lib/logger'
 import config from '@/lib/config'
 import * as storage from '@/lib/storage'
 import { md5md5 } from '@/lib/utils/crypto'
+import {
+  LocalConverter,
+  SupportedFormat,
+} from '@/lib/converters/local-converter'
 // import { detectSubscriptionFormat } from '@/lib/utils/format-detector'
 // import { getSubscriptionData } from '@/lib/services/subscription-service'
 // import { convertSubscription } from '@/lib/services/conversion-service'
 // import { prisma } from '@/lib/prisma'
 
 /**
+ * Data aggregation function - mimics original CF Worker's ADD function
  * 数据聚合函数 - 模拟原始 CF Worker 的 ADD 函数
- * 将多行文本数据清理并转换为数组
  */
-async function ADD(envadd: string): Promise<string[]> {
-  // 替换制表符、引号、管道符、回车换行为换行符，然后去重换行
-  let addtext = envadd.replace(/[\t"'|\r\n]+/g, '\n').replace(/\n+/g, '\n')
+async function processRawData(rawData: string): Promise<string[]> {
+  // Replace tabs, quotes, pipes, carriage returns and newlines with newlines, then deduplicate newlines
+  let processedText = rawData
+    .replace(/[\t"'|\r\n]+/g, '\n')
+    .replace(/\n+/g, '\n')
 
-  // 去除首尾换行符
-  if (addtext.charAt(0) === '\n') addtext = addtext.slice(1)
-  if (addtext.charAt(addtext.length - 1) === '\n')
-    addtext = addtext.slice(0, addtext.length - 1)
+  // Remove leading and trailing newlines
+  if (processedText.charAt(0) === '\n') processedText = processedText.slice(1)
+  if (processedText.charAt(processedText.length - 1) === '\n')
+    processedText = processedText.slice(0, processedText.length - 1)
 
-  const add = addtext.split('\n').filter((line) => line.trim() !== '')
-  logger.debug('ADD function processed data:', {
-    input: envadd.length,
-    output: add.length,
+  const dataArray = processedText
+    .split('\n')
+    .filter((line) => line.trim() !== '')
+  logger.debug('processRawData function processed data:', {
+    input: rawData.length,
+    output: dataArray.length,
   })
-  return add
+  return dataArray
 }
 
 /**
+ * Fetch subscription content - mimics original CF Worker's getSUB function
  * 获取订阅内容 - 模拟原始 CF Worker 的 getSUB 函数
  */
-async function getSUB(
-  api: string[],
+async function fetchSubscriptions(
+  subscriptionUrls: string[],
   request: NextRequest,
   userAgent: string
 ): Promise<[string[], string]> {
-  if (!api || api.length === 0) {
+  if (!subscriptionUrls || subscriptionUrls.length === 0) {
     return [[], '']
   }
 
-  // 去重
-  const uniqueApis = [...new Set(api)]
-  let newapi = ''
-  let 订阅转换URLs = ''
-  let 异常订阅 = ''
+  // Remove duplicates
+  const uniqueUrls = [...new Set(subscriptionUrls)]
+  let aggregatedContent = ''
+  let conversionUrls = ''
+  let errorNodes = ''
 
   logger.info('Fetching subscriptions:', {
-    count: uniqueApis.length,
-    urls: uniqueApis,
+    count: uniqueUrls.length,
+    urls: uniqueUrls,
   })
 
   const controller = new AbortController()
   const timeout = setTimeout(() => {
     controller.abort()
-  }, 5000) // 5秒超时
+  }, 5000) // 5 second timeout
 
   try {
-    // 并发请求所有订阅链接
+    // Concurrent requests to all subscription links
     const responses = await Promise.allSettled(
-      uniqueApis.map(async (apiUrl) => {
+      uniqueUrls.map(async (apiUrl) => {
         try {
           const response = await fetch(apiUrl, {
             method: 'GET',
@@ -93,35 +102,35 @@ async function getSUB(
       })
     )
 
-    // 处理响应结果
+    // Process response results
     for (let i = 0; i < responses.length; i++) {
       const response = responses[i]
-      const apiUrl = uniqueApis[i]
+      const apiUrl = uniqueUrls[i]
 
       if (response.status === 'fulfilled') {
         const { content } = response.value
 
         if (content.includes('proxies:')) {
-          // Clash 配置
+          // Clash configuration
           logger.debug('Detected Clash subscription:', apiUrl)
-          订阅转换URLs += '|' + apiUrl
+          conversionUrls += '|' + apiUrl
         } else if (
           content.includes('outbounds"') &&
           content.includes('inbounds"')
         ) {
-          // Singbox 配置
+          // Singbox configuration
           logger.debug('Detected Singbox subscription:', apiUrl)
-          订阅转换URLs += '|' + apiUrl
+          conversionUrls += '|' + apiUrl
         } else if (content.includes('://')) {
-          // 明文订阅（包含协议的节点配置）
+          // Plain text subscription (contains protocol node configuration)
           logger.debug('Detected plain text subscription:', apiUrl)
-          newapi += content + '\n'
+          aggregatedContent += content + '\n'
         } else if (isValidBase64(content)) {
-          // Base64 编码的订阅
+          // Base64 encoded subscription
           logger.debug('Detected Base64 subscription:', apiUrl)
           try {
             const decoded = Buffer.from(content, 'base64').toString('utf-8')
-            newapi += decoded + '\n'
+            aggregatedContent += decoded + '\n'
           } catch (error) {
             const errorMessage =
               error instanceof Error ? error.message : String(error)
@@ -129,51 +138,53 @@ async function getSUB(
               url: apiUrl,
               error: errorMessage,
             })
-            // 添加异常订阅标记
-            const 异常订阅LINK = `trojan://CMLiussss@127.0.0.1:8888?security=tls&allowInsecure=1&type=tcp&headerType=none#异常订阅 ${
+            // Add error subscription marker
+            const errorNodeLink = `trojan://CMLiussss@127.0.0.1:8888?security=tls&allowInsecure=1&type=tcp&headerType=none#Error_Sub_${
               apiUrl.split('://')[1].split('/')[0]
             }`
-            异常订阅 += `${异常订阅LINK}\n`
+            errorNodes += `${errorNodeLink}\n`
           }
         } else {
-          // 无法识别的订阅格式
+          // Unrecognized subscription format
           logger.warn('Unknown subscription format:', apiUrl)
-          const 异常订阅LINK = `trojan://CMLiussss@127.0.0.1:8888?security=tls&allowInsecure=1&type=tcp&headerType=none#异常订阅 ${
+          const errorNodeLink = `trojan://CMLiussss@127.0.0.1:8888?security=tls&allowInsecure=1&type=tcp&headerType=none#Unknown_Sub_${
             apiUrl.split('://')[1].split('/')[0]
           }`
-          异常订阅 += `${异常订阅LINK}\n`
+          errorNodes += `${errorNodeLink}\n`
         }
       } else {
-        // 请求失败
+        // Request failed
         logger.error('Subscription request failed:', {
           url: apiUrl,
           error: response.reason,
         })
-        const 异常订阅LINK = `trojan://CMLiussss@127.0.0.1:8888?security=tls&allowInsecure=1&type=tcp&headerType=none#请求失败 ${
+        const errorNodeLink = `trojan://CMLiussss@127.0.0.1:8888?security=tls&allowInsecure=1&type=tcp&headerType=none#Failed_Req_${
           apiUrl.split('://')[1].split('/')[0]
         }`
-        异常订阅 += `${异常订阅LINK}\n`
+        errorNodes += `${errorNodeLink}\n`
       }
     }
   } catch (error) {
-    logger.error('getSUB error:', error)
+    logger.error('fetchSubscriptions error:', error)
   } finally {
     clearTimeout(timeout)
   }
 
-  // 将处理后的内容转换为数组
-  const 订阅内容 = await ADD(newapi + 异常订阅)
+  // Convert processed content to array
+  const subscriptionContent = await processRawData(
+    aggregatedContent + errorNodes
+  )
 
-  logger.info('getSUB completed:', {
-    totalNodes: 订阅内容.length,
-    conversionUrls: 订阅转换URLs,
+  logger.info('fetchSubscriptions completed:', {
+    totalNodes: subscriptionContent.length,
+    conversionUrls: conversionUrls,
   })
 
-  return [订阅内容, 订阅转换URLs]
+  return [subscriptionContent, conversionUrls]
 }
 
 /**
- * 检查是否为有效的 Base64 字符串
+ * Check if string is valid Base64
  */
 function isValidBase64(str: string): boolean {
   const cleanStr = str.replace(/\s/g, '')
@@ -182,18 +193,18 @@ function isValidBase64(str: string): boolean {
 }
 
 /**
- * 获取正确的服务器URL，优先使用请求头中的信息
- * 这对于部署在代理服务器后面的应用很重要
+ * Get correct server URL, prioritizing request headers
+ * This is important for applications deployed behind proxy servers
  */
 function getServerUrl(request: NextRequest, fallbackUrl: URL): string {
-  // 1. 检查 X-Forwarded-Host 头（代理服务器设置）
+  // 1. Check X-Forwarded-Host header (set by proxy servers)
   const forwardedHost = request.headers.get('x-forwarded-host')
   if (forwardedHost) {
     const protocol = request.headers.get('x-forwarded-proto') || 'https'
     return `${protocol}://${forwardedHost}`
   }
 
-  // 2. 检查 Host 头
+  // 2. Check Host header
   const host = request.headers.get('host')
   if (host && !host.includes('localhost') && !host.includes('127.0.0.1')) {
     const protocol =
@@ -204,92 +215,20 @@ function getServerUrl(request: NextRequest, fallbackUrl: URL): string {
     return `${protocol}://${host}`
   }
 
-  // 3. 回退到 URL origin
+  // 3. Fallback to URL origin
   return fallbackUrl.origin
 }
 
 /**
- * 代理 URL 请求 - 用于调用外部转换服务
- * 实现完整的订阅转换逻辑，包括 fakeToken 机制
- */
-async function proxyURL(
-  订阅转换URL: string,
-  originalUrl: URL
-): Promise<Response> {
-  try {
-    // 解析转换服务 URL
-    const proxyUrls = 订阅转换URL.split('|').filter((url) => url.trim() !== '')
-    if (proxyUrls.length === 0) {
-      throw new Error('No conversion URLs available')
-    }
-
-    // 随机选择一个转换服务
-    const selectedUrl = proxyUrls[Math.floor(Math.random() * proxyUrls.length)]
-    const parsedURL = new URL(selectedUrl)
-
-    // 构建转换请求 URL
-    let newURL = `${parsedURL.protocol}//${parsedURL.hostname}${parsedURL.pathname}`
-    if (originalUrl.search) {
-      newURL += originalUrl.search
-    }
-
-    logger.info('Proxying to conversion service:', {
-      originalUrl: selectedUrl,
-      newURL,
-    })
-
-    // 发送请求到转换服务
-    const response = await fetch(newURL, {
-      method: 'GET',
-      headers: {
-        'User-Agent': 'CF-Workers-SUB/1.0',
-        Accept: '*/*',
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(
-        `Conversion service error: ${response.status} ${response.statusText}`
-      )
-    }
-
-    const content = await response.text()
-
-    // 如果是 Clash 配置，应用修复
-    let finalContent = content
-    if (
-      content.includes('wireguard') &&
-      !content.includes('remote-dns-resolve')
-    ) {
-      finalContent = clashFix(content)
-    }
-
-    return new Response(finalContent, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: {
-        'Content-Type':
-          response.headers.get('Content-Type') || 'text/plain; charset=utf-8',
-        'Profile-Update-Interval': config.subUpdateTime.toString(),
-        'X-New-URL': newURL,
-      },
-    })
-  } catch (error) {
-    logger.error('proxyURL error:', error)
-    throw error
-  }
-}
-
-/**
- * 检查是否为有效的 fakeToken
- * fakeToken 是基于主 token 和当前日期生成的
+ * Check if token is a valid fakeToken
+ * fakeToken is generated based on main token and current date
  */
 async function checkFakeToken(token: string): Promise<boolean> {
   try {
     const { md5Double } = await import('@/lib/utils/crypto')
     const mainToken = config.token
 
-    // 检查当前日期的 fakeToken
+    // Check current date's fakeToken
     const currentDate = new Date()
     currentDate.setHours(0, 0, 0, 0)
     const timeTemp = Math.ceil(currentDate.getTime() / 1000)
@@ -299,7 +238,7 @@ async function checkFakeToken(token: string): Promise<boolean> {
       return true
     }
 
-    // 检查前一天的 fakeToken（容错处理）
+    // Check previous day's fakeToken (error tolerance)
     const previousDate = new Date(currentDate)
     previousDate.setDate(previousDate.getDate() - 1)
     const previousTimeTemp = Math.ceil(previousDate.getTime() / 1000)
@@ -309,7 +248,7 @@ async function checkFakeToken(token: string): Promise<boolean> {
       return true
     }
 
-    // 检查是否为 md5Double(fakeToken) 格式（用于内部订阅 URL）
+    // Check if it's md5Double(fakeToken) format (for internal subscription URLs)
     const hashedCurrentFakeToken = await md5Double(currentFakeToken)
     const hashedPreviousFakeToken = await md5Double(previousFakeToken)
 
@@ -321,119 +260,67 @@ async function checkFakeToken(token: string): Promise<boolean> {
 }
 
 /**
- * Clash 配置修复函数
+ * Detect subscription format based on User-Agent and URL parameters
  */
-function clashFix(content: string): string {
+function detectSubscriptionFormat(
+  userAgent: string,
+  url: URL
+): SupportedFormat {
+  const lowerUserAgent = userAgent.toLowerCase()
+
+  // URL parameters have higher priority
+  if (url.searchParams.has('b64') || url.searchParams.has('base64')) {
+    return 'base64'
+  } else if (url.searchParams.has('clash')) {
+    return 'clash'
+  } else if (url.searchParams.has('sb') || url.searchParams.has('singbox')) {
+    return 'singbox'
+  } else if (url.searchParams.has('surge')) {
+    return 'surge'
+  } else if (url.searchParams.has('quanx')) {
+    return 'quanx'
+  } else if (url.searchParams.has('loon')) {
+    return 'loon'
+  }
+
+  // User-Agent based detection (mimics original CF Worker logic)
   if (
-    content.includes('wireguard') &&
-    !content.includes('remote-dns-resolve')
+    lowerUserAgent.includes('null') ||
+    lowerUserAgent.includes('subconverter') ||
+    lowerUserAgent.includes('nekobox') ||
+    lowerUserAgent.includes('cf-workers-sub')
   ) {
-    const lines = content.includes('\r\n')
-      ? content.split('\r\n')
-      : content.split('\n')
-    let result = ''
-
-    for (const line of lines) {
-      if (line.includes('type: wireguard')) {
-        const 备改内容 = ', mtu: 1280, udp: true'
-        const 正确内容 = ', mtu: 1280, remote-dns-resolve: true, udp: true'
-        result += line.replace(new RegExp(备改内容, 'g'), 正确内容) + '\n'
-      } else {
-        result += line + '\n'
-      }
-    }
-
-    return result
+    return 'base64'
+  } else if (
+    lowerUserAgent.includes('clash') &&
+    !lowerUserAgent.includes('subconverter')
+  ) {
+    return 'clash'
+  } else if (
+    (lowerUserAgent.includes('sing-box') ||
+      lowerUserAgent.includes('singbox')) &&
+    !lowerUserAgent.includes('subconverter')
+  ) {
+    return 'singbox'
+  } else if (
+    lowerUserAgent.includes('surge') &&
+    !lowerUserAgent.includes('subconverter')
+  ) {
+    return 'surge'
+  } else if (
+    lowerUserAgent.includes('quantumult%20x') &&
+    !lowerUserAgent.includes('subconverter')
+  ) {
+    return 'quanx'
+  } else if (
+    lowerUserAgent.includes('loon') &&
+    !lowerUserAgent.includes('subconverter')
+  ) {
+    return 'loon'
   }
-  return content
-}
 
-/**
- * 调用外部订阅转换服务
- * 实现完整的 subconverter API 调用逻辑
- */
-async function callSubConverter(
-  targetFormat: string,
-  subscriptionUrl: string,
-  originalUrl: URL
-): Promise<Response> {
-  try {
-    // 构建转换服务 URL
-    const baseUrl = `${config.subProtocol}://${config.subApi}/sub`
-    const params = new URLSearchParams({
-      target: targetFormat,
-      url: encodeURIComponent(subscriptionUrl),
-      config: encodeURIComponent(config.subConfig),
-      emoji: 'true',
-      append_type: 'true',
-      append_info: 'true',
-      scv: 'false',
-      udp: 'false',
-      list: 'false',
-      sort: 'false',
-      fdn: 'false',
-      insert: 'false',
-    })
-
-    // 格式特定参数
-    if (targetFormat === 'surge') {
-      params.set('ver', '4')
-    } else if (targetFormat === 'quanx') {
-      params.set('udp', 'true')
-    }
-
-    const subConverterUrl = `${baseUrl}?${params.toString()}`
-
-    logger.info('Calling subconverter:', {
-      targetFormat,
-      subscriptionUrl,
-      subConverterUrl,
-      baseUrl,
-      params: Object.fromEntries(params.entries()),
-    })
-
-    // 调用转换服务
-    const response = await fetch(subConverterUrl, {
-      method: 'GET',
-      headers: {
-        'User-Agent': 'CF-Workers-SUB/1.0',
-        Accept: '*/*',
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(
-        `Subconverter error: ${response.status} ${response.statusText}`
-      )
-    }
-
-    let content = await response.text()
-
-    // Clash 特殊处理
-    if (targetFormat === 'clash') {
-      content = clashFix(content)
-    }
-
-    logger.info('Subconverter success:', {
-      targetFormat,
-      contentLength: content.length,
-    })
-
-    return new Response(content, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Content-Disposition': `attachment; filename*=utf-8''${encodeURIComponent(
-          config.subName
-        )}`,
-        'Profile-Update-Interval': config.subUpdateTime.toString(),
-      },
-    })
-  } catch (error) {
-    logger.error('Subconverter failed:', error)
-    throw error
-  }
+  // Default to base64
+  return 'base64'
 }
 
 export async function GET(
@@ -453,26 +340,26 @@ export async function GET(
       params: resolvedParams,
     })
 
-    // 获取路径中的 token
+    // Get token from path
     const pathToken = resolvedParams.slug?.[0]
     if (!pathToken) {
       logger.warn('No path token found, redirecting to home')
       return NextResponse.redirect(new URL('/', request.url))
     }
 
-    // 验证 token（包括 fakeToken 验证）
+    // Validate token (including fakeToken validation)
     const tokenValid = await validateToken(pathToken, url)
 
-    // 检查是否为 fakeToken 访问
+    // Check if it's fakeToken access
     const isFakeTokenAccess = await checkFakeToken(pathToken)
 
     if (!tokenValid && !isFakeTokenAccess) {
       logger.warn('Invalid token access:', { token: pathToken, ip })
 
-      // 发送 Telegram 通知
+      // Send Telegram notification
       try {
         await telegramService.sendMessage(
-          '❌ 非法访问',
+          '❌ Unauthorized Access',
           ip,
           `Token: ${pathToken}\nUser-Agent: ${userAgent}\nURL: ${url.toString()}`
         )
@@ -483,21 +370,20 @@ export async function GET(
       return new Response('Unauthorized', { status: 401 })
     }
 
-    // 如果是 fakeToken 访问，强制返回 base64 格式
+    // If it's fakeToken access, force return base64 format
     const forcedBase64 = isFakeTokenAccess
 
-    // 检查是否为浏览器访问（重定向到编辑页面）
-    const isBrowser = userAgent.toLowerCase().includes('mozilla')
-    if (isBrowser && !url.searchParams.has('sub')) {
-      logger.info('Browser detected, redirecting to edit page')
+    // Browser access redirection logic is disabled for debugging
+    // const isBrowser = userAgent.toLowerCase().includes('mozilla')
+    // if (isBrowser && !url.searchParams.has('sub')) {
+    //   logger.info('Browser detected, redirecting to edit page')
+    //   const serverUrl = getServerUrl(request, url)
+    //   return NextResponse.redirect(
+    //     new URL(`/edit?token=${pathToken}`, serverUrl)
+    //   )
+    // }
 
-      const serverUrl = getServerUrl(request, url)
-      return NextResponse.redirect(
-        new URL(`/edit?token=${pathToken}`, serverUrl)
-      )
-    }
-
-    // 获取存储的订阅内容
+    // Get stored subscription content
     const storedContent = storage.getSubscriptionContent(pathToken) || ''
     logger.info('Retrieved stored content:', {
       token: pathToken,
@@ -514,36 +400,39 @@ export async function GET(
       })
     }
 
-    // **核心逻辑：数据聚合和分类**
+    // **Core Logic: Data aggregation and classification**
     logger.info('Starting data aggregation and classification')
 
-    // 1. 将存储内容转换为数组
-    const 重新汇总所有链接 = await ADD(storedContent)
+    // 1. Convert stored content to array
+    const allLinks = await processRawData(storedContent)
 
-    // 2. 分离自建节点和订阅链接
-    let 自建节点 = ''
-    let 订阅链接 = ''
+    // 2. Separate self-built nodes and subscription links
+    let selfBuiltNodes = ''
+    let subscriptionLinks = ''
 
-    for (const link of 重新汇总所有链接) {
+    for (const link of allLinks) {
       if (link.toLowerCase().startsWith('http')) {
-        订阅链接 += link + '\n' // HTTP链接 = 订阅链接
+        subscriptionLinks += link + '\n' // HTTP links = subscription links
       } else {
-        自建节点 += link + '\n' // 非HTTP = 节点配置
+        selfBuiltNodes += link + '\n' // Non-HTTP = node configuration
       }
     }
 
     logger.info('Data classification completed:', {
-      totalLinks: 重新汇总所有链接.length,
-      selfBuiltNodes: 自建节点.split('\n').filter((n) => n.trim()).length,
-      subscriptionLinks: 订阅链接.split('\n').filter((n) => n.trim()).length,
+      totalLinks: allLinks.length,
+      selfBuiltNodesCount: selfBuiltNodes.split('\n').filter((n) => n.trim())
+        .length,
+      subscriptionLinksCount: subscriptionLinks
+        .split('\n')
+        .filter((n) => n.trim()).length,
     })
 
-    // 3. 获取外部订阅内容
-    let req_data = 自建节点 // 从自建节点开始
-    let 订阅转换URL = ''
+    // 3. Get external subscription content
+    let aggregatedData = selfBuiltNodes // Start with self-built nodes
+    let conversionUrls = ''
 
-    const 订阅链接数组 = await ADD(订阅链接)
-    const validSubscriptionUrls = 订阅链接数组.filter(
+    const subscriptionUrlArray = await processRawData(subscriptionLinks)
+    const validSubscriptionUrls = subscriptionUrlArray.filter(
       (url) => url.trim() !== ''
     )
 
@@ -552,204 +441,109 @@ export async function GET(
         count: validSubscriptionUrls.length,
       })
 
-      const [订阅内容, 转换URLs] = await getSUB(
-        validSubscriptionUrls,
-        request,
-        userAgent
-      )
+      const [subscriptionContent, externalConversionUrls] =
+        await fetchSubscriptions(validSubscriptionUrls, request, userAgent)
 
-      // 聚合所有内容
-      req_data += 订阅内容.join('\n')
+      // Aggregate all content
+      aggregatedData += subscriptionContent.join('\n')
 
-      // 更新转换 URL
-      if (转换URLs) {
-        订阅转换URL += 转换URLs
+      // Update conversion URLs
+      if (externalConversionUrls) {
+        conversionUrls += externalConversionUrls
       }
 
       logger.info('External subscriptions processed:', {
-        fetchedNodes: 订阅内容.length,
-        conversionUrls: 转换URLs,
+        fetchedNodes: subscriptionContent.length,
+        conversionUrls: externalConversionUrls,
       })
     }
 
-    // 4. 格式检测和转换
-    let 订阅格式 = 'base64'
+    // 4. Format detection and conversion
+    let subscriptionFormat = detectSubscriptionFormat(userAgent, url)
 
-    // 根据 User-Agent 和 URL 参数检测格式（完全模拟原始 CF Worker 逻辑）
-    if (
-      userAgent.includes('null') ||
-      userAgent.includes('subconverter') ||
-      userAgent.includes('nekobox') ||
-      userAgent.includes('cf-workers-sub')
-    ) {
-      订阅格式 = 'base64'
-    } else if (
-      userAgent.includes('clash') ||
-      (url.searchParams.has('clash') && !userAgent.includes('subconverter'))
-    ) {
-      订阅格式 = 'clash'
-    } else if (
-      userAgent.includes('sing-box') ||
-      userAgent.includes('singbox') ||
-      ((url.searchParams.has('sb') || url.searchParams.has('singbox')) &&
-        !userAgent.includes('subconverter'))
-    ) {
-      订阅格式 = 'singbox'
-    } else if (
-      userAgent.includes('surge') ||
-      (url.searchParams.has('surge') && !userAgent.includes('subconverter'))
-    ) {
-      订阅格式 = 'surge'
-    } else if (
-      userAgent.includes('quantumult%20x') ||
-      (url.searchParams.has('quanx') && !userAgent.includes('subconverter'))
-    ) {
-      订阅格式 = 'quanx'
-    } else if (
-      userAgent.includes('loon') ||
-      (url.searchParams.has('loon') && !userAgent.includes('subconverter'))
-    ) {
-      订阅格式 = 'loon'
-    }
-
-    // URL 参数优先级更高
-    if (url.searchParams.has('b64') || url.searchParams.has('base64')) {
-      订阅格式 = 'base64'
+    // If forced base64 (fakeToken access), override format
+    if (forcedBase64) {
+      subscriptionFormat = 'base64'
     }
 
     logger.info('Format detection:', {
       userAgent,
-      订阅格式,
-      hasConversionUrls: !!订阅转换URL,
+      subscriptionFormat,
+      hasConversionUrls: !!conversionUrls,
+      forcedBase64,
     })
 
-    // 5. 内容去重和清理（模拟原始 CF Worker 逻辑）
+    // 5. Content deduplication and cleanup (mimics original CF Worker logic)
     const utf8Encoder = new TextEncoder()
-    const encodedData = utf8Encoder.encode(req_data)
+    const encodedData = utf8Encoder.encode(aggregatedData)
     const utf8Decoder = new TextDecoder()
     const text = utf8Decoder.decode(encodedData)
 
-    // 去重
+    // Deduplication
     const uniqueLines = new Set(text.split('\n').filter((line) => line.trim()))
-    const result = [...uniqueLines].join('\n')
+    const finalContent = [...uniqueLines].join('\n')
 
-    // 6. Base64 编码
-    let base64Data: string
+    logger.info('Content processing completed:', {
+      originalLength: text.length,
+      finalLength: finalContent.length,
+      nodeCount: finalContent.split('\n').filter((line) => line.includes('://'))
+        .length,
+    })
+
+    // 6. Use local converter for format conversion
     try {
-      base64Data = Buffer.from(result, 'utf-8').toString('base64')
-    } catch (e) {
-      // 备用编码方法（模拟原始 CF Worker）
-      const binary = new TextEncoder().encode(result)
-      let base64 = ''
-      const chars =
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+      const convertedResult = await LocalConverter.convert(
+        finalContent,
+        subscriptionFormat,
+        {
+          filename: config.subName,
+          updateInterval: config.subUpdateTime,
+        }
+      )
 
-      for (let i = 0; i < binary.length; i += 3) {
-        const byte1 = binary[i]
-        const byte2 = binary[i + 1] || 0
-        const byte3 = binary[i + 2] || 0
-
-        base64 += chars[byte1 >> 2]
-        base64 += chars[((byte1 & 3) << 4) | (byte2 >> 4)]
-        base64 += chars[((byte2 & 15) << 2) | (byte3 >> 6)]
-        base64 += chars[byte3 & 63]
-      }
-
-      const padding = 3 - (binary.length % 3 || 3)
-      base64Data =
-        base64.slice(0, base64.length - padding) + '=='.slice(0, padding)
-    }
-
-    // 7. 如果是 base64 格式或 fakeToken 访问，直接返回
-    if (订阅格式 === 'base64' || forcedBase64) {
-      logger.info('Returning base64 subscription:', {
-        originalLength: result.length,
-        base64Length: base64Data.length,
-        nodeCount: result.split('\n').filter((line) => line.includes('://'))
-          .length,
+      logger.info('Local conversion successful:', {
+        format: subscriptionFormat,
+        resultLength: convertedResult.length,
       })
 
-      // 发送成功通知
+      // Send success notification
       try {
         await telegramService.sendMessage(
-          '✅ 订阅获取',
+          '✅ Subscription Generated',
           ip,
-          `Token: ${pathToken}\nUser-Agent: ${userAgent}\n节点数量: ${
-            result.split('\n').filter((line) => line.includes('://')).length
+          `Token: ${pathToken}\nUser-Agent: ${userAgent}\nFormat: ${subscriptionFormat}\nNodes: ${
+            finalContent.split('\n').filter((line) => line.includes('://'))
+              .length
           }`
         )
       } catch (error) {
         logger.error('Failed to send Telegram notification:', error)
       }
 
-      return new Response(base64Data, {
+      // Set appropriate content type based on format
+      let contentType = 'text/plain; charset=utf-8'
+      if (subscriptionFormat === 'clash') {
+        contentType = 'text/yaml; charset=utf-8'
+      } else if (subscriptionFormat === 'singbox') {
+        contentType = 'application/json; charset=utf-8'
+      }
+
+      return new Response(convertedResult, {
         headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
+          'Content-Type': contentType,
+          'Content-Disposition': `attachment; filename*=utf-8''${encodeURIComponent(
+            config.subName
+          )}`,
           'Profile-Update-Interval': config.subUpdateTime.toString(),
           'Cache-Control': 'no-cache',
         },
       })
-    }
+    } catch (conversionError) {
+      logger.error('Local conversion failed:', conversionError)
 
-    // 8. 其他格式需要调用外部转换服务
-    logger.info('Converting to target format:', 订阅格式)
+      // Fallback to base64 format
+      const base64Data = Buffer.from(finalContent, 'utf-8').toString('base64')
 
-    // 生成 fakeToken（模拟原始 CF Worker 逻辑）
-    const currentDate = new Date()
-    currentDate.setHours(0, 0, 0, 0)
-    const timeTemp = Math.ceil(currentDate.getTime() / 1000)
-    const { md5Double } = await import('@/lib/utils/crypto')
-    const fakeToken = await md5Double(`${pathToken}${timeTemp}`)
-
-    // 构建订阅转换 URL（模拟原始 CF Worker 逻辑）
-    const serverUrl = getServerUrl(request, url)
-    let 内部订阅URL = `${serverUrl}/${await md5Double(
-      fakeToken
-    )}?token=${fakeToken}`
-    if (订阅转换URL) {
-      内部订阅URL += '|' + 订阅转换URL
-    }
-
-    logger.info('Generated internal subscription URL:', {
-      fakeToken,
-      内部订阅URL,
-      serverUrl,
-      originalOrigin: url.origin,
-      headers: {
-        host: request.headers.get('host'),
-        'x-forwarded-host': request.headers.get('x-forwarded-host'),
-        'x-forwarded-proto': request.headers.get('x-forwarded-proto'),
-      },
-    })
-
-    try {
-      // 调用外部转换服务
-      const conversionResult = await callSubConverter(
-        订阅格式,
-        内部订阅URL,
-        url
-      )
-
-      logger.info('Conversion successful:', 订阅格式)
-
-      // 发送成功通知
-      try {
-        await telegramService.sendMessage(
-          '✅ 订阅转换',
-          ip,
-          `Token: ${pathToken}\nUser-Agent: ${userAgent}\n格式: ${订阅格式}\n节点数量: ${
-            result.split('\n').filter((line) => line.includes('://')).length
-          }`
-        )
-      } catch (error) {
-        logger.error('Failed to send Telegram notification:', error)
-      }
-
-      return conversionResult
-    } catch (error) {
-      logger.error('Conversion failed, falling back to base64:', error)
-
-      // 转换失败，返回 base64 作为回退
       return new Response(base64Data, {
         headers: {
           'Content-Type': 'text/plain; charset=utf-8',
