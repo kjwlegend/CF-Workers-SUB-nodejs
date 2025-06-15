@@ -149,7 +149,7 @@ pnpm test     # 运行测试（如适用）
 
 ## ⭐ Star 星星走起
 
-[![Stargazers over time](https://starchart.cc/cmliu/CF-Workers-SUB.svg?variant=adaptive)](https://starchart.cc/cmliu/CF-Workers-SUB)
+[![Stargazers over time](https://starchart.cc/kjwlegend/CF-Workers-SUB-nodejs.svg?variant=adaptive)](https://starchart.cc/kjwlegend/CF-Workers-SUB-nodejs)
 
 ## 🙏 致谢
 
